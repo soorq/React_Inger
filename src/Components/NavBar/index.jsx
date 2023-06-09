@@ -9,34 +9,77 @@ import {
     NavBtn,
     NavBtnLink
 } from './NavElements'
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { FaBars } from 'react-icons/fa'
+import {animateScroll as scroll} from 'react-scroll'
 
 const NavBar = ({toggle}) => {
+    const [scrolled, setScrolled] = useState(false)
+
+    const scrolling = () => {
+        window.scrollY >= 80 ? setScrolled(true) : setScrolled(false)
+    }
+
+    useEffect(()=>{
+        window.addEventListener('scroll', scrolling)
+    },[])
+
+    const toggleHome = () => {
+        scroll.scrollToTop()
+    }
+
     return(
         <>
-            <Nav>
+            <Nav scrolled={scrolled}>
                 <NavContainer>
-                    <NavLogo to='/'>Dolla</NavLogo>
+                    <NavLogo to='/' onClick={toggleHome}>Инжер</NavLogo>
                     <MobileIcon onClick={toggle}>
                         <FaBars/>
                     </MobileIcon>
                     <NavMenu>
                         <NavItem>
-                            <NavLinks to='home'>Home</NavLinks>
+                            <NavLinks to='/'
+                                      smooth={true}
+                                      duration={500}
+                                      spy={true}
+                                      exact='true'
+                                      offset={-80}
+                                      activeClass='active'
+                            >Главная</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to='about'>About</NavLinks>
+                            <NavLinks to='about'
+                                      smooth={true}
+                                      duration={500}
+                                      spy={true}
+                                      exact='true'
+                                      offset={-80}
+                                      activeClass='active'
+                            >О нас</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to='contact'>Contact</NavLinks>
+                            <NavLinks to='contact'
+                                      smooth={true}
+                                      duration={500}
+                                      spy={true}
+                                      exact='true'
+                                      offset={-80}
+                                      activeClass='active'
+                            >Контакт</NavLinks>
                         </NavItem>
                         <NavItem>
-                            <NavLinks to='news'>News</NavLinks>
+                            <NavLinks to='news'
+                                      smooth={true}
+                                      duration={500}
+                                      spy={true}
+                                      exact='true'
+                                      offset={-80}
+                                      activeClass='active'
+                            >Проекты</NavLinks>
                         </NavItem>
                     </NavMenu>
                     <NavBtn>
-                        <NavBtnLink>Sign Up</NavBtnLink>
+                        <NavBtnLink>Заказать Конвейер</NavBtnLink>
                     </NavBtn>
                 </NavContainer>
             </Nav>
